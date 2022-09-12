@@ -53,6 +53,8 @@ mkcert \
 *.dev.com dev.com
 ```
 
+put these file to `/certs` folder before run `docker-compose`. 
+
 ## for WSL
 if you use `WSL` as your dev environment, you need to proceed below to get correct `TLS` certs for `traefik`.   
 1. install `mkcert` and create certs for both of `WSL` linux OS and `Windows` host OS.  

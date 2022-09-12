@@ -1,2 +1,2 @@
-/cert/local-cert.pem
-/cert/local-key.pem
+certs/local-cert.pem
+certs/local-key.pem

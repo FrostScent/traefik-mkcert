@@ -1,0 +1,33 @@
+http:
+    routers:
+        test-dev:
+            rule: "Host(`app.dev.com`)"
+            service: "app"
+            tls:
+                domains:
+                    - main: "app.dev.com"
+                      sans:
+                        - "*.dev.com"
+        keycloak:
+            rule: "Host(`sso.dev.com`)"
+            service: "sso"
+            tls:
+                domains:
+                    - main: "sso.dev.com"
+                      sans:
+                        - "*.dev.com"
+
+    services:
+        app:
+            loadBalancer:
+                servers:
+                    - url: "http://host.docker.internal:3000/"
+        sso:
+            loadBalancer:
+                servers:
+                    - url: "http://host.docker.internal:8080/"
+
+tls:
+    certificates:
+        - certFile: "/etc/certs/local-cert.pem"
+          keyFile: "/etc/certs/local-key.pem"

@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  reverse-proxy:
+    image: traefik:v2.4.7
+    container_name: traefik
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.traefik=true"
+    - "traefik.http.routers.traefik.tls=true"
+    - "traefik.http.services.traefik.loadbalancer.server.port=8000"
+    ports:
+      - 80:80
+      - 443:443
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - ./traefik.yaml:/etc/traefik/traefik.yaml:ro
+      - ./dynamic_conf.yaml:/etc/traefik/dynamic_conf.yaml:ro
+      - ./certs:/etc/certs:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
